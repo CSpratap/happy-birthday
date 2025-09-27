@@ -85,7 +85,9 @@
         text-align: center;
       }
       .front { border-radius: 0.25em 1em 1em 0.25em; }
-      .back { border-radius: 1em 0.25em 0.25em 1em; transform: rotateY(180deg); }
+      .back { border-radius: 1em 0.25em 0.25em 1em; 
+        transform: rotateY(180deg); 
+      }
       
       .book { counter-reset: page 0; }
       .front::after, .back::after {
@@ -99,10 +101,13 @@
       }
       .front::after { right: 1em; }
       .back::after { left: 1em; }
-      .cover::after, .back-cover::after { content: ""; }
+      .cover::after, 
+      .back-cover::after { content: ""; }
       
       .front:has(img), .back:has(img) { padding: 0; }
-      .front img, .back img { width: 100%; height: 100%; object-fit: cover; }
+      .front img, 
+      .back img { width: 100%; height: 100%; 
+        object-fit: cover; }
 
       .cover {
         background: linear-gradient(135deg, var(--color-heart), var(--color-text-pink));
@@ -133,7 +138,7 @@
         line-height: 1.4;
         color: var(--color-black);
       }
-      p:last-child { margin-bottom: 0; }
+      p:last-child { margin-bottom: 40; }
       b { font-family: var(--font-heading); font-weight: bold; }
 
       .floating-hearts {
@@ -154,6 +159,38 @@
         color: var(--color-heart);
         animation: float linear infinite;
       }
+
+       /* @media (max-width: 500px) {
+      body { background-size: 30px 30px; }
+      .book { width: 50vw; height: 140vw; }
+    } */
+
+
+    @media (max-width: 768px) {
+  .book {
+    height: 60vh;
+  }
+  .page img {
+    max-height: 100vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .book {
+    width: 50%;
+    height: 55vh;
+  }
+  .front, .back {
+    padding: 5px;
+    
+  }
+  h1, h2 {
+    font-size: 1.1rem;
+  }
+  p {
+    font-size: 0.85rem;
+  }
+}
     </style>
   </head>
   <body>
@@ -264,6 +301,19 @@
     </div>
 </div>
 
+<!-- Page 7: Heartfelt Goodbye -->
+<div class="page" data-page-num="8">
+    <!-- <div class="front">
+       <img src="mammaa/a1.jpeg" alt="">
+    </div> -->
+    <!-- <div class="back back-cover cover">
+        <h1>With Love</h1>
+        <p>Always and Forever 💌</p>
+         <p>So, tell me, when will you become
+           Mrs. Bhattacharjee instead of Miss Debnath?❤️😘</p>
+    </div> -->
+</div>
+
     <script>
         const book = document.querySelector('.book');
         const pages = Array.from(document.querySelectorAll('.page'));
@@ -276,7 +326,7 @@
             const rect = book.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
 
-            if (clickX < rect.width / 2) {
+           if (clickX < rect.width / 2) {
                 currentPage = Math.max(0, currentPage - 1);
             } else {
                 currentPage = Math.min(pageCount, currentPage + 1);
@@ -297,6 +347,8 @@
                 // **THE FIX IS HERE:** This new z-index logic is more robust.
                 // It ensures flipped pages are always behind the current pages.
                 page.style.zIndex = isFlipped ? pageNum : pageCount - pageNum;
+             
+
             });
         }
         
